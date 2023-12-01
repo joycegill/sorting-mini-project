@@ -61,7 +61,7 @@ public class Quicksort implements Sorter {
     int pivot = (int)((ub + lb) / 2); 
 
     /* Swap the pivot with the first element */
-    swap(arr, pivot, lb); 
+    GillJoyceSort.swap(arr, pivot, lb); 
 
     int small = lb + 1;
     int large = ub-1;
@@ -76,26 +76,19 @@ public class Quicksort implements Sorter {
         large--;
       /* Otherwise, swap */
       }else {
-        swap(arr, small, large);
+        GillJoyceSort.swap(arr, small, large);
       } // if/else
     } // while
-
+    
     /* When small >= large, swap the pivot with small/large */
     if(compare.compare(arr[lb], arr[large]) >= 0) {
       pivot = large;
     }else {
       pivot = small - 1;
     } // if/else
-    swap (arr, lb, pivot); 
+    GillJoyceSort.swap (arr, lb, pivot); 
 
     /* Return the location of the pivot */
     return pivot; 
   } // partition(T[], Comparator, int, int)
-
-  /* Swaps num1 and num2 */
-  public static <T> void swap(T[] vals, int num1, int num2) {
-    T temp = vals[num1];
-    vals[num1] = vals[num2];
-    vals[num2] = temp;
-  } // swap(T[], int, int)
 } // class Quicksort

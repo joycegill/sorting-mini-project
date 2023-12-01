@@ -35,13 +35,14 @@ public class MergeSort implements Sorter {
   /* Sort an array using the merge sort algorithm */
   @Override
   public <T> void sort(T[] values, Comparator<? super T> order) {
-    /* If array is empty */
+    //  If array is empty 
     if (values == null) {
       return;
     } // if
-    
-    /* Otherwise, sort array using merge sort */
-    merge (values, 0, values.length, order);
+
+    // Otherwise, sort array using merge sort 
+    T[] arr = Arrays.copyOf(values, values.length);
+    merge (values, 0, values.length, arr, order);
   } // sort(T[], Comparator<? super T>
 
   /**
@@ -50,45 +51,37 @@ public class MergeSort implements Sorter {
    *
    * Preconditions: Each subarray is sorted accorting to comparator.
    */
-  static <T> void merge(T[] vals, int lo, int hi, Comparator<? super T> comparator) {
-    int mid = (lo + hi) / 2;
+  static <T> void merge(T[] vals, int lo, int hi, T[] arr, Comparator<? super T> comparator) {
     int length = hi - lo;
 
-    /* Base case */
-    if (vals == null || length == 0  || length == 1) {
+    // Base case 
+    if (length <= 1 || vals == null) {
       return;
     } // if
 
-    /* Sort each half recursively */
-    merge (vals, lo, mid, comparator);
-    merge (vals, mid, hi, comparator);
+    // Sort each half recursively 
+    int mid = lo + length / 2;
+    merge(vals, lo, mid, arr, comparator);
+    merge(vals, mid, hi, arr, comparator);
 
-    T[] arr = Arrays.copyOfRange(vals, lo, hi);
-    int left = 0;
-    int right = (int) (arr.length / 2);
+    int left = lo;
+    int right = mid;
+    int idx = lo;
 
-
-    for (int i = 0; i < length; i++) {
-      /* If left maximizes */
-      if (left >= mid - lo && right < length) {
-        vals[lo + i] = arr[right];
-        right++;
-      /* If right maximizes */
-      } else if (left < mid-lo && right >= length) {
-        vals[lo + i] = arr[left];
-        left++;
-      /* If left is less than right  */
-      } else if (comparator.compare(arr[left], arr[right]) < 0) {
-        vals[lo + i] = arr[left];
-        left++;
-      /* If left is greater than or equal to right */
+    while (left < mid || right < hi) {
+      if (left >= mid) {
+        arr[idx++] = vals[right++];
+      } else if (right >= hi) {
+        arr[idx++] = vals[left++];
+      } else if (comparator.compare(vals[left], vals[right]) < 0) {
+        arr[idx++] = vals[left++];
       } else {
-        vals[lo + i] = arr[right];
-        right++;
+        arr[idx++] = vals[right++];
       } // if/else
-    } // for
+    } // while
 
-    return;
-  } // merge (T[], int, int, Comparator) 
+    // Copy merged values back to the original array
+    System.arraycopy(arr, lo, vals, lo, length);
+  } // mergeSort (T[], int, int, T[], Comparator)
 
 } // class MergeSort

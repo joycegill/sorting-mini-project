@@ -41,18 +41,11 @@ public class InsertionSort implements Sorter {
           for (int j = 0; j <= i; j++) {
             // Add to correct position
             if ((order.compare(values[i], values[j])) < 0) {
-              swap(values, i, j);
+              GillJoyceSort.swap(values, i, j);
             } // if
           } // for
         } // if
       } // for
     } // if
   } // sort(T[], Comparator<? super T>)
-
-  /* Swaps num1 and num2 */
-  public static <T> void swap(T[] vals, int num1, int num2) {
-    T temp = vals[num1];
-    vals[num1] = vals[num2];
-    vals[num2] = temp;
-  } // swap(T[], int, int)
 } // class InsertionSort
