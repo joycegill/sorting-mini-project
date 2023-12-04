@@ -34,12 +34,12 @@ public class Quicksort implements Sorter {
   /* Sort an array using the quick sort algorithm */
   @Override
   public <T> void sort(T[] values, Comparator<? super T> order) {
-    /* If array is empty */
+    //If array is empty 
     if (values == null) {
       return;
     } // if
     
-    /* Otherwise, sort array using quick sort */
+    // Otherwise, sort array using quick sort 
     quicksort (values, order, 0, values.length);
   } // sort(T[], Comparator<? super T>
 
@@ -57,30 +57,30 @@ public class Quicksort implements Sorter {
 
   /*  Select a partition */
   private <T> int partition(T[] arr, Comparator<? super T> compare, int lb, int ub) {
-    /* Set pivot */
+    // Set pivot 
     int pivot = (int)((ub + lb) / 2); 
 
-    /* Swap the pivot with the first element */
+    // Swap the pivot with the first element 
     GillJoyceSort.swap(arr, pivot, lb); 
 
     int small = lb + 1;
     int large = ub-1;
    
-    /* Continue until small and large are the same */
+    // Continue until small and large are the same 
     while (small < large){
-      /* Update small if small is less than lb */
+      // Update small if small is less than lb 
       if (compare.compare(arr[lb], arr[small]) > 0) { 
         small++; 
-      /* Update large is large is greater than or equal to lb */
+      // Update large is large is greater than or equal to lb 
       } else if(compare.compare(arr[lb], arr[large]) <= 0) {
         large--;
-      /* Otherwise, swap */
+      // Otherwise, swap 
       }else {
         GillJoyceSort.swap(arr, small, large);
       } // if/else
     } // while
     
-    /* When small >= large, swap the pivot with small/large */
+    // When small >= large, swap the pivot with small/large 
     if(compare.compare(arr[lb], arr[large]) >= 0) {
       pivot = large;
     }else {
@@ -88,7 +88,7 @@ public class Quicksort implements Sorter {
     } // if/else
     GillJoyceSort.swap (arr, lb, pivot); 
 
-    /* Return the location of the pivot */
+    // Return the location of the pivot 
     return pivot; 
   } // partition(T[], Comparator, int, int)
 } // class Quicksort
