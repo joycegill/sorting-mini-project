@@ -67,7 +67,8 @@ public class MergeSort implements Sorter {
     int left = lo;
     int right = mid;
     int idx = lo;
-
+    
+    // Merge the two sorted halves
     while (left < mid || right < hi) {
       if (left >= mid) {
         arr[idx++] = vals[right++];
